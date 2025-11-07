@@ -14,16 +14,12 @@ export default async function handler(req, res) {
       return res.status(400).json({ error: "Prompt is required" });
     }
 
-    // ✅ Load the Gemini model
+    // ✅ Use the official model name
     const model = genAI.getGenerativeModel({ model: "gemini-1.5-pro" });
 
-    // ✅ The API expects an object with 'contents'
-    const result = await model.generateContent({
-      contents: [{ role: "user", parts: [{ text: prompt }] }],
-    });
-
-    // ✅ Extract response safely
-    const text = result.response?.candidates?.[0]?.content?.parts?.[0]?.text || "No response";
+    // ✅ Generate text safely
+    const result = await model.generateContent(prompt);
+    const text = result.response.text();
 
     res.status(200).json({ response: text });
   } catch (error) {
