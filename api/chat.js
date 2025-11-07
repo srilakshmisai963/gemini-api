@@ -15,7 +15,7 @@ export default async function handler(req, res) {
     }
 
     // ✅ Use the official model name
-    const model = genAI.getGenerativeModel({ model: "gemini-1.5-pro" });
+    const model = genAI.getGenerativeModel({ model: "gemini-1.5-pro-latest" });
 
     // ✅ Generate text safely
     const result = await model.generateContent(prompt);
