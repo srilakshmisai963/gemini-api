@@ -21,7 +21,7 @@ Ensure each day's meals are **balanced, wholesome, and realistic**, respecting t
 - Smoking: ${userData.smoking}
 - Drinking: ${userData.drinking}
 
-Include one short hydration or wellness tip
+Include one short hydration or wellness tip.
 
 Also generate a **short personalized summary** (maximum 5 lines) that feels human and empathetic. 
 It should sound like:  
