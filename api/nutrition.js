@@ -9,37 +9,52 @@ export default async function handler(req, res) {
 
   try {
     const { userData } = req.body;
-
     const model = genAI.getGenerativeModel({ model: "gemini-2.5-pro" });
 
+    // Dynamically map meal times to categories
+    const mealCategories = userData.mealTimes.map((time) => {
+      const [hour, minutePart] = time.split(":");
+      let hourNum = parseInt(hour);
+      if (time.toLowerCase().includes("pm") && hourNum < 12) hourNum += 12;
+
+      if (hourNum >= 5 && hourNum < 12) return "breakfast";
+      if (hourNum >= 12 && hourNum < 16) return "lunch";
+      if (hourNum >= 16 && hourNum < 18) return "snacks";
+      if (hourNum >= 18 && hourNum <= 23) return "dinner";
+      return "misc";
+    });
+
+    const uniqueMealCategories = [...new Set(mealCategories.filter(m => m !== "misc"))];
+
     const prompt = `
-You are an Indian nutritionist who creates balanced and culturally authentic Indian meal plans.
+You are a professional **nutritionist and wellness expert**. 
+Create a **7-day meal plan** focusing on **local and regional foods specific to ${userData.city}, ${userData.state}**. 
+Use  dishes from that city or region.
 
-Based on the following user details, create a **7-day Indian meal plan** formatted strictly as **JSON**. 
-Each day must have Breakfast, Lunch, Dinner, Snacks, and a short hydration or lifestyle tip.
+Each day should include only the relevant meals based on the user's selected meal times:
+${uniqueMealCategories.join(", ")}.
 
-Use **local Indian dishes** suitable for the region (based on the city/state). 
-Ensure variety, nutrition balance, and adherence to dietary preferences.
-
-User details:
-- Location: ${userData.city}, ${userData.state}
-- Meals per day: ${userData.mealsPerDay}
-- Meal times: ${userData.mealTimes.join(", ")}
+Ensure each day's meals are **balanced, wholesome, and realistic**, respecting the user's:
 - Diet type: ${userData.dietType}
 - Food preferences: ${userData.foodItems}
 - Drink preferences: ${userData.drinkItems}
-- Smoking habits: ${userData.smoking}
-- Drinking habits: ${userData.drinking}
+- Smoking: ${userData.smoking}
+- Drinking: ${userData.drinking}
 
-Output format (strict JSON):
+Include short hydration or wellness tips each day.
+
+Also generate a **personalized AI-written summary** at the end that reflects the user's choices, tone, and goals. 
+Make it warm, supportive, and empowering — for example:
+"Your personalized plan is tailored to support your body's unique needs and hormonal balance. 
+It includes nutrient-rich foods that help improve energy, regulate cycles, and support overall health and fertility."
+
+Output format (strict JSON, no extra text, no markdown):
+
 {
   "7_day_plan": [
     {
       "day": "Day 1",
-      "breakfast": "string",
-      "lunch": "string",
-      "dinner": "string",
-      "snacks": "string",
+      ${uniqueMealCategories.map((m) => `"${m}": "string"`).join(",\n      ")},
       "hydration_tip": "string"
     },
     ...
@@ -51,14 +66,14 @@ Output format (strict JSON):
     const result = await model.generateContent([prompt]);
     let text = result.response.text();
 
-    // Ensure it’s valid JSON
-    text = text.replace(/```json|```/g, '').trim();
+    // Clean JSON formatting
+    text = text.replace(/```json|```/g, "").trim();
 
     let planJSON;
     try {
       planJSON = JSON.parse(text);
     } catch (err) {
-      console.error("JSON parsing failed, fallback to text:", text);
+      console.error("⚠️ JSON parsing failed, fallback to raw text:", text);
       planJSON = { raw: text };
     }
 
