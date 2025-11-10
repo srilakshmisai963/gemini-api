@@ -14,11 +14,28 @@ export default async function handler(req, res) {
       return res.status(400).json({ error: "Prompt is required" });
     }
 
-    // ✅ Use the official model name
     const model = genAI.getGenerativeModel({ model: "gemini-2.5-pro" });
 
-    // ✅ Generate text safely
-    const result = await model.generateContent(prompt);
+    // 🧠 Build a controlled system prompt
+    const systemPrompt = `
+You are "Aarogya", a warm, empathetic **AI health assistant** specializing in:
+- Women's and men's health
+- Fertility
+- Pregnancy
+- General wellness, nutrition, and lifestyle
+
+Your goals:
+- Provide evidence-based, easy-to-understand answers.
+- Always respond in a friendly, conversational tone.
+- If the question is **unrelated to health, fertility, pregnancy, or wellness**, politely decline with something like:
+  "I'm your personal health assistant! Please ask me questions related to fertility, pregnancy, or overall health."
+
+Answer concisely (3–6 lines max unless more detail is medically necessary).
+`;
+
+    const fullPrompt = `${systemPrompt}\n\nUser: ${prompt}\n\nAssistant:`;
+
+    const result = await model.generateContent(fullPrompt);
     const text = result.response.text();
 
     res.status(200).json({ response: text });
