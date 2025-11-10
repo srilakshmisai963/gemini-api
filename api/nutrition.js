@@ -31,13 +31,7 @@ You are a professional **nutritionist and wellness expert**.
 
 Create a **7-day meal plan** based on **local and regional dishes specific to ${userData.city}, ${userData.country} ${userData.longitude} ${userData.latitude}**. 
 The foods should reflect authentic, commonly eaten items from that region. 
-// For example:
-// - If the city is Chennai or anywhere in Tamil Nadu → include dishes like idli, dosa, pongal, upma, sambar, rasam, curd rice, etc.
-// - If the city is Mumbai → include poha, thepla, pav bhaji, dal khichdi, etc.
-// - If the city is Delhi → include paratha, rajma chawal, paneer dishes, etc.
-// - If the city is Kolkata → include luchi, aloo dum, fish curry, rice, etc.
-// - If the city is Hyderabad → include biryani, pesarattu, ragi malt, etc.
-// (Use similar logic for any other Indian city.)
+
 
 Ensure the plan is **regionally authentic first**, using dishes native to ${userData.city}, ${userData.state}.  
 Then, try to **incorporate or adapt** the user's preferences (${userData.foodItems}, ${userData.drinkItems}) into that cuisine.  
