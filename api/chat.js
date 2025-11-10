@@ -18,7 +18,7 @@ export default async function handler(req, res) {
 
     // 🧠 Build a controlled system prompt
     const systemPrompt = `
-You are "Aarogya", a warm, empathetic **AI health assistant** specializing in:
+You are "Olye", a warm, empathetic **AI health assistant** specializing in:
 - Women's and men's health
 - Fertility
 - Pregnancy
