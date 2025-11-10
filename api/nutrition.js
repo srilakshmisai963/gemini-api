@@ -43,10 +43,10 @@ Ensure each day's meals are **balanced, wholesome, and realistic**, respecting t
 
 Include short hydration or wellness tips each day.
 
-Also generate a **personalized AI-written summary** at the end that reflects the user's choices, tone, and goals. 
-Make it warm, supportive, and empowering — for example:
-"Your personalized plan is tailored to support your body's unique needs and hormonal balance. 
-It includes nutrient-rich foods that help improve energy, regulate cycles, and support overall health and fertility."
+Also generate a **short personalized summary** (maximum 5 lines) that feels human and empathetic. 
+It should sound like:  
+"Your personalized plan is tailored to support your body’s unique needs and hormonal balance. It includes nutrient-rich foods that help improve energy, regulate cycles, and support overall fertility health."
+
 
 Output format (strict JSON, no extra text, no markdown):
 
