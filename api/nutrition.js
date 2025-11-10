@@ -29,7 +29,7 @@ export default async function handler(req, res) {
 const prompt = `
 You are a professional **nutritionist and wellness expert**.
 
-Create a **7-day meal plan** based on **local and regional dishes specific to ${userData.city}, ${userData.country} ${userData.longitude} ${userdata.latitude}**. 
+Create a **7-day meal plan** based on **local and regional dishes specific to ${userData.city}, ${userData.country} ${userData.longitude} ${userData.latitude}**. 
 The foods should reflect authentic, commonly eaten items from that region. 
 For example:
 - If the city is Chennai or anywhere in Tamil Nadu → include dishes like idli, dosa, pongal, upma, sambar, rasam, curd rice, etc.
