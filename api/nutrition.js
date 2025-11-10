@@ -40,7 +40,7 @@ For example:
 (Use similar logic for any other Indian city.)
 
 Ensure the plan is **regionally authentic first**, using dishes native to ${userData.city}, ${userData.state}.  
-Then, try to **incorporate or adapt** the user's preferences (${userData.foodItems}, ${userData.drinkItems}) only **if they fit naturally** into that cuisine.  
+Then, try to **incorporate or adapt** the user's preferences (${userData.foodItems}, ${userData.drinkItems}) into that cuisine.  
 If a preference doesn’t fit (e.g., roti in South India), replace it with a similar local equivalent (e.g., chapati, dosa, or idli).
 Keep the meals realistic and wholesome, and adjust for:
 - Diet type: ${userData.dietType}
