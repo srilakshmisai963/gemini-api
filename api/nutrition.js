@@ -39,15 +39,14 @@ For example:
 - If the city is Hyderabad → include biryani, pesarattu, ragi malt, etc.
 (Use similar logic for any other Indian city.)
 
-Each day should include only the relevant meals based on the user's selected meal times:
-${uniqueMealCategories.join(", ")}.
-
-Ensure each day's meals are **balanced, wholesome, and realistic**, respecting the user's:
+Ensure the plan is **regionally authentic first**, using dishes native to ${userData.city}, ${userData.state}.  
+Then, try to **incorporate or adapt** the user's preferences (${userData.foodItems}, ${userData.drinkItems}) only **if they fit naturally** into that cuisine.  
+If a preference doesn’t fit (e.g., roti in South India), replace it with a similar local equivalent (e.g., chapati, dosa, or idli).
+Keep the meals realistic and wholesome, and adjust for:
 - Diet type: ${userData.dietType}
-- Food preferences: ${userData.foodItems}
-- Drink preferences: ${userData.drinkItems}
 - Smoking: ${userData.smoking}
 - Drinking: ${userData.drinking}
+
 
 Include one short hydration or lifestyle tip per day (related to weather or general wellness in ${userData.city}).
 
